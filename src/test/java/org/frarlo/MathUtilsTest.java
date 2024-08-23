@@ -13,7 +13,20 @@ class MathUtilsTest {
         int expected = 2;
         int actual = mathUtils.add(1, 1);
 
-        assertEquals(expected, actual, "The add method should add two numbers");
+        assertEquals(expected, actual,
+                "The add method should add two numbers");
+
+    }
+
+    @Test
+    void testDivide() {
+
+        MathUtils mathUtils = new MathUtils();
+        // Exception class; executable -> lambda of the method; and message:
+        assertThrows(ArithmeticException.class,
+                () -> mathUtils.divide(1, 0),
+                "Divide by zero should throw an Exception"
+        );
 
     }
 
@@ -21,7 +34,9 @@ class MathUtilsTest {
     void testComputeCircleArea() {
 
         MathUtils mathUtils = new MathUtils();
-        assertEquals(314.1592653589793, mathUtils.computeCircleArea(10), "Should return circle area");
+        assertEquals(314.1592653589793, mathUtils.computeCircleArea(10),
+                "Should return circle area");
 
     }
+
 }
