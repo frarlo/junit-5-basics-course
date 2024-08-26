@@ -1,10 +1,12 @@
 package org.frarlo;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("When running MathUtils")
 class MathUtilsTest {
 
     MathUtils mathUtils;
@@ -14,15 +16,34 @@ class MathUtilsTest {
         mathUtils = new MathUtils();
     }
 
-    @Test
-    void testAdd() {
-        int expected = 2;
-        int actual = mathUtils.add(1, 1);
-        assertEquals(expected, actual,
-                "The add method should add two numbers");
+    @Nested
+    @DisplayName("add method")
+    class AddTest {
+
+        @Test
+        @DisplayName("when adding two positive numbers")
+        void testAddPositive() {
+            assertEquals(2, mathUtils.add(1, 1), "should return the right sum");
+        }
+
+        @Test
+        @DisplayName("when adding two negative numbers")
+        void testAddNegative() {
+            assertEquals(-2, mathUtils.add(-1, -1), "should return the right sum");
+        }
+
     }
 
     @Test
+    @DisplayName("multiply method")
+    void testMultiply() {
+        // Exception class; executable -> lambda of the method; and message:
+        assertEquals(4, mathUtils.multiply(2, 2), "should return the right product.");
+    }
+
+
+    @Test
+    @DisplayName("divide method")
     void testDivide() {
         // Exception class; executable -> lambda of the method; and message:
         assertThrows(ArithmeticException.class,
@@ -32,9 +53,24 @@ class MathUtilsTest {
     }
 
     @Test
+    @DisplayName("circle area method")
     void testComputeCircleArea() {
         assertEquals(314.1592653589793, mathUtils.computeCircleArea(10),
                 "Should return circle area");
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("TDD method. Yet to be implemented. Should not run.")
+    void testDisabled(){
+        fail("This test is disabled.");
+    }
+
+    @Test
+    @DisabledOnOs(OS.WINDOWS)
+    @DisplayName("This test won't run on Windows.")
+    void testWindowsOsDisabled(){
+        fail("This test is disabled for Windows");
     }
 
 }
