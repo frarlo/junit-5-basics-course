@@ -37,10 +37,12 @@ class MathUtilsTest {
     @Test
     @DisplayName("multiply method")
     void testMultiply() {
-        // Exception class; executable -> lambda of the method; and message:
-        assertEquals(4, mathUtils.multiply(2, 2), "should return the right product.");
+        assertAll(
+                () -> assertEquals(4, mathUtils.multiply(2, 2)),
+                () -> assertEquals(0, mathUtils.multiply(2, 0)),
+                () -> assertEquals(-2, mathUtils.multiply(2, -1))
+        );
     }
-
 
     @Test
     @DisplayName("divide method")
